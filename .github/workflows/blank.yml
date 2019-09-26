@@ -1,4 +1,4 @@
-name: CI
+name: GitOps
 
 on:
   push:
@@ -12,9 +12,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
-    with:
-      python-version: '3.x' # Version range or exact version of a Python version to use, using semvers version range syntax.
+    - name: Setup python
+      uses: actions/setup-python@v1
+      with:
+        python-version: ['3.x']
+        architecture: x64
     - name: Install client-python from civo
       run: pip install git+https://github.com/civo/client-python.git
     - name: Run check script
