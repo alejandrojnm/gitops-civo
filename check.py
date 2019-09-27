@@ -20,7 +20,7 @@ if not search_hostname:
         time.sleep(10)
 
 # add this because the instance is not ready to handle ssh connection so fast
-time.sleep(40)
+time.sleep(20)
 
 ip_server = civo.instances.search(filter='hostname:{}'.format(hostname_default))[0]['public_ip']
 username = 'admin'
