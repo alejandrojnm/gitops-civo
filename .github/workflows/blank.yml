@@ -25,9 +25,12 @@ jobs:
         echo -n "${{ secrets.SSH_KEY_PRIVATE }}" | base64 --decode > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
         stat $HOME/.ssh/id_rsa
+    - name: Compact webroot
+      run: tar -czvf webroot.gz webroot
     - name: Run check script
       env:
         CIVO_TOKEN: ${{ secrets.CIVO_TOKEN }}
       run: python check.py
-    - name: Run env
-      run:  echo $IP
+    - name: Copy the site
+      run: |
+        ssh -i $HOME/.ssh/id_rsa

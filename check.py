@@ -27,7 +27,7 @@ username = 'admin'
 
 c = Connection('{}@{}'.format(username, ip_server))
 # c.run('cat /etc/os-release')
-result = c.put('webroot', remote='/tmp')
+result = c.put('webroot.gz', remote='/tmp')
 print("Uploaded {0.local} to {0.remote}".format(result))
 c.run('sudo rm -rf /var/www/html/* && sudo cp -r /tmp/webroot/* /var/www/html/')
 c.run('sudo apt update && sudo apt install -qy nginx')
