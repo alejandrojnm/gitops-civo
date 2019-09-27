@@ -23,4 +23,4 @@ ip_server = civo.instances.search(filter='hostname:{}'.format(hostname_default))
 username = 'admin'
 
 c = Connection('{}@{}'.format(username, ip_server))
-c.run('uname -s')
+c.run('cat /etc/os-release')
