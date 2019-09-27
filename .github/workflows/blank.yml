@@ -31,6 +31,3 @@ jobs:
       env:
         CIVO_TOKEN: ${{ secrets.CIVO_TOKEN }}
       run: python check.py
-    - name: Copy the site
-      run: |
-        ssh -i $HOME/.ssh/id_rsa
