@@ -1,4 +1,5 @@
 from civo import Civo
+import time, os
 
 hostname_default = 'gitops-civo.example.com'
 
@@ -9,7 +10,12 @@ search_hostname = civo.instances.search(filter='hostname:{}'.format(hostname_def
 ssh_id = civo.ssh.search(filter='name:alejandrojnm')[0]['id']
 
 if not search_hostname:
-    civo.instances.create(hostname='text.example.com', size=size_id,
-                          region='lon1', template_id=template,
-                          public_ip='true', ssh_key_id=ssh_id)
-    print(template)
+    instance = civo.instances.create(hostname=hostname_default, size=size_id, region='lon1', template_id=template,
+                                     public_ip='true', ssh_key_id=ssh_id)
+    status = instance['status']
+
+while status != 'ACTIVE':
+    status = civo.instances.search(filter='hostname:{}'.format(hostname_default))[0]['status']
+    time.sleep(10)
+
+os.environ["IP"] = civo.instances.search(filter='hostname:{}'.format(hostname_default))[0]['public_ip']

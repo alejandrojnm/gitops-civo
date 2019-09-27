@@ -27,7 +27,5 @@ jobs:
         echo -n "${{ secrets.SSH_KEY_PRIVATE }}" | base64 --decode > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
         stat $HOME/.ssh/id_rsa
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Run env
+      run:  echo $IP
