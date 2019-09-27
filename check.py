@@ -20,7 +20,7 @@ if not search_hostname:
         time.sleep(10)
 
 ip_server = civo.instances.search(filter='hostname:{}'.format(hostname_default))[0]['public_ip']
-username = 'civo'
+username = 'admin'
 
 c = Connection('{}@{}'.format(username, ip_server))
 c.run('uname -s')
