@@ -20,12 +20,14 @@ jobs:
       env:
         CIVO_TOKEN: ${{ secrets.CIVO_TOKEN }}
       run: python check.py
-    - name: Add ssh preivate key to the server
+    - name: Add ssh private key to the server
       run: |
-        mkdir -p $HOME/.ssh
-        chmod 700 $HOME/.ssh
-        echo -n "${{ secrets.SSH_KEY_PRIVATE }}" | base64 --decode > $HOME/.ssh/id_rsa,
-        chmod 600 $HOME/.ssh/id_rsa,
+        mkdir -p $HOME/.ssh/
+        chmod 700 $HOME/.ssh/
+        echo "test" > $HOME/.ssh/test.txt
+        ls -l $HOME/.ssh/
+        echo -n "${{ secrets.SSH_KEY_PRIVATE }}" | base64 --decode > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
         stat $HOME/.ssh/id_rsa
     - name: Run a multi-line script
       run: |
