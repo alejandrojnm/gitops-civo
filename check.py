@@ -1,5 +1,6 @@
+import time
+from fabric import Connection
 from civo import Civo
-import time, os
 
 hostname_default = 'gitops-civo.example.com'
 
@@ -14,8 +15,12 @@ if not search_hostname:
                                      public_ip='true', ssh_key_id=ssh_id)
     status = instance['status']
 
-while status != 'ACTIVE':
-    status = civo.instances.search(filter='hostname:{}'.format(hostname_default))[0]['status']
-    time.sleep(10)
+    while status != 'ACTIVE':
+        status = civo.instances.search(filter='hostname:{}'.format(hostname_default))[0]['status']
+        time.sleep(10)
 
-os.environ["IP"] = civo.instances.search(filter='hostname:{}'.format(hostname_default))[0]['public_ip']
+ip_server = civo.instances.search(filter='hostname:{}'.format(hostname_default))[0]['public_ip']
+username = 'civo'
+
+c = Connection('{}@{}'.format(username, ip_server))
+c.run('uname -s')

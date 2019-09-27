@@ -15,11 +15,9 @@ jobs:
     - name: Setup Python for use with actions
       uses: actions/setup-python@v1.0.0
     - name: Install client-python from civo
-      run: pip install git+https://github.com/alejandrojnm/client-python.git
-    - name: Run check script
-      env:
-        CIVO_TOKEN: ${{ secrets.CIVO_TOKEN }}
-      run: python check.py
+      run: |
+        pip install git+https://github.com/alejandrojnm/client-python.git
+        pip install fabric
     - name: Add ssh private key to the server
       run: |
         mkdir -p $HOME/.ssh/
@@ -27,5 +25,9 @@ jobs:
         echo -n "${{ secrets.SSH_KEY_PRIVATE }}" | base64 --decode > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
         stat $HOME/.ssh/id_rsa
+    - name: Run check script
+      env:
+        CIVO_TOKEN: ${{ secrets.CIVO_TOKEN }}
+      run: python check.py
     - name: Run env
       run:  echo $IP
