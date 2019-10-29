@@ -16,7 +16,7 @@ jobs:
       uses: actions/setup-python@v1.0.0
     - name: Install client-python from civo
       run: |
-        pip install civo
+        pip install civo==1.0.1
         pip install fabric
     - name: Add ssh private key to the server
       run: |
